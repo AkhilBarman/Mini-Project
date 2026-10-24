@@ -24,6 +24,19 @@ def compute_text_hash(text: str) -> str:
     return hashlib.md5(text.strip().encode("utf-8")).hexdigest()
 
 
+def _ensure_nltk_resources() -> None:
+    """Ensure required NLTK tokenizers (punkt, punkt_tab) are downloaded."""
+    try:
+        import nltk
+        for resource in ["punkt", "punkt_tab"]:
+            try:
+                nltk.data.find(f"tokenizers/{resource}")
+            except (LookupError, OSError):
+                nltk.download(resource, quiet=True)
+    except Exception:
+        pass
+
+
 class NLIChecker:
     """
     Sentence-level NLI hallucination checker using SummaC.
@@ -71,6 +84,7 @@ class NLIChecker:
         if imager is not None:
             self.imager = imager
         elif SummaCImager is not None:
+            _ensure_nltk_resources()
             self.imager = SummaCImager(
                 model_name=self.model_name,
                 granularity=self.granularity,
