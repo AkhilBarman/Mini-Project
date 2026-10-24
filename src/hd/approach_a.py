@@ -37,6 +37,43 @@ def _ensure_nltk_resources() -> None:
         pass
 
 
+def _ensure_tokenizer_batch_encode(tokenizer: Any) -> None:
+    """Add batch_encode_plus fallback to tokenizer if missing in newer transformers."""
+    if tokenizer is None:
+        return
+    try:
+        getattr(tokenizer, "batch_encode_plus")
+    except AttributeError:
+        def _compat_batch_encode_plus(batch_text_or_text_pairs, **kwargs):
+            kwargs.pop("truncation_strategy", None)
+            if not batch_text_or_text_pairs:
+                return tokenizer([], **kwargs)
+            first = batch_text_or_text_pairs[0]
+            if isinstance(first, (list, tuple)) and len(first) == 2:
+                prems = [p[0] for p in batch_text_or_text_pairs]
+                hypos = [p[1] for p in batch_text_or_text_pairs]
+                return tokenizer(prems, hypos, **kwargs)
+            return tokenizer(batch_text_or_text_pairs, **kwargs)
+
+        tokenizer.batch_encode_plus = _compat_batch_encode_plus
+
+
+def _patch_imager_for_modern_transformers(imager: Any) -> None:
+    """Ensure SummaCImager tokenizer compatibility across all transformers versions."""
+    if imager is None:
+        return
+    orig_load_nli = getattr(imager, "load_nli", None)
+    if orig_load_nli is not None and not getattr(imager, "_is_nli_patched", False):
+        def patched_load_nli():
+            orig_load_nli()
+            _ensure_tokenizer_batch_encode(getattr(imager, "tokenizer", None))
+        imager.load_nli = patched_load_nli
+        imager._is_nli_patched = True
+
+    if hasattr(imager, "tokenizer") and imager.tokenizer is not None:
+        _ensure_tokenizer_batch_encode(imager.tokenizer)
+
+
 class NLIChecker:
     """
     Sentence-level NLI hallucination checker using SummaC.
@@ -93,6 +130,9 @@ class NLIChecker:
             )
         else:
             self.imager = None
+
+        if self.imager is not None:
+            _patch_imager_for_modern_transformers(self.imager)
 
     def _load_cache(self) -> Dict[str, Dict[str, Any]]:
         """Load persistent cache from disk."""
@@ -172,6 +212,8 @@ class NLIChecker:
             # Load model lazily if needed
             if hasattr(self.imager, "model") and self.imager.model is None:
                 self.imager.load_nli()
+            if hasattr(self.imager, "tokenizer") and self.imager.tokenizer is not None:
+                _ensure_tokenizer_batch_encode(self.imager.tokenizer)
 
             # Split document chunks
             doc_chunks = self.imager.split_text(judgment_text, granularity=self.granularity)[:self.max_doc_sents]
