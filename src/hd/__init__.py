@@ -16,6 +16,7 @@ from .evaluation import (
     save_results,
     make_comparison_table
 )
+from .approach_a import NLIChecker
 
 __all__ = [
     "clean_text",
@@ -29,6 +30,7 @@ __all__ = [
     "best_f1_threshold",
     "per_error_type_recall",
     "save_results",
-    "make_comparison_table"
+    "make_comparison_table",
+    "NLIChecker"
 ]
-__version__ = "0.2.0"
+__version__ = "0.3.0"

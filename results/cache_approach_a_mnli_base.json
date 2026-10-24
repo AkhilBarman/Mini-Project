@@ -1,0 +1,202 @@
+{
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::The Delhi High Court on Tuesday directed the Delhi Government to pay over Rs. 16 lakhs to a senior judicial officer, who is an Additional District Judge in Saket Courts, as reimbursement for the expenses incurred by him for his COVID-19 treatment last year.:::mnli-base": {
+    "hallucination_score": 0.944242,
+    "support_score": -0.888484,
+    "max_entailment": 0.029757,
+    "max_contradiction": 0.918241,
+    "best_doc_idx": 8,
+    "best_doc_chunk": "The\nrespondent nos."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::ADJ Dinesh Kumar was admitted in the city's PSRI Hospital between April 22 to June 7, 2021 after contracting COVID-19 during the second wave.:::mnli-base": {
+    "hallucination_score": 0.630104,
+    "support_score": -0.260209,
+    "max_entailment": 0.167178,
+    "max_contradiction": 0.427387,
+    "best_doc_idx": 6,
+    "best_doc_chunk": "The respondent nos.1 to 3, have however, on the basis of the\nrecommendations made by the Technical Standing Committee constituted\nby the respondent nos."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::He remained there on a ventilator for three weeks.:::mnli-base": {
+    "hallucination_score": 0.369085,
+    "support_score": 0.261829,
+    "max_entailment": 0.982875,
+    "max_contradiction": 0.721046,
+    "best_doc_idx": 3,
+    "best_doc_chunk": "It is also undisputed that since at that stage, there were no hospital\nbeds available for his treatment in an empanelled hospital in the NCT of\nDelhi, the petitioner due his dropping levels of oxygen , had to be rushed to\nthe nearest hospital, being the respondent no.5/hospital, where he remained\non ventilator for a period of three weeks."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::While he had to pay Rs. 24,02,380 to the hospital, the government reimbursed only Rs.7,08,500 on the ground that the hospital had ignored the charges fixed by it for treatment of patients suffering from COVID-19.:::mnli-base": {
+    "hallucination_score": 0.56371,
+    "support_score": -0.127421,
+    "max_entailment": 0.787863,
+    "max_contradiction": 0.915284,
+    "best_doc_idx": 4,
+    "best_doc_chunk": "The petitioner, who was in a\nhelpless state at that stage, had no other option but to pay the entire amount\nof Rs."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Justice Rekha Palli said undoubtedly the authorities are justified in urging that the hospital had charged much beyond what was prescribed in the circular dated 20.06.2020 issued by the GNCTD, and it is only because of the said over charging that the petitioner had to incur much higher expenses than what have been reimbursed to him.:::mnli-base": {
+    "hallucination_score": 0.899601,
+    "support_score": -0.799202,
+    "max_entailment": 0.055343,
+    "max_contradiction": 0.854545,
+    "best_doc_idx": 13,
+    "best_doc_chunk": "Goel and Ors."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::\"However, the fact remains that during April and May, 2021, when the residents of Delhi were not only struggling to get hospital beds, but there was also a huge shortage of oxygen, the petitioner had no other option but to take treatment at respondent no.5, and has thankfully survived.:::mnli-base": {
+    "hallucination_score": 0.086,
+    "support_score": 0.827999,
+    "max_entailment": 0.993377,
+    "max_contradiction": 0.165377,
+    "best_doc_idx": 26,
+    "best_doc_chunk": "However, the fact remains that during April\nand May, 2021, when the residents of Delhi were not only struggling to get\nhospital beds, but there was also a huge shortage of oxygen, the petitioner,\nhad no other option but to take treatment at respondent no.5, and has\nthankfully survived."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::One shudders to think what fate the petitioner would have met if he had not, at that point, been treated at respondent no.5 hospital,\" said the court.:::mnli-base": {
+    "hallucination_score": 0.537866,
+    "support_score": -0.075733,
+    "max_entailment": 0.007914,
+    "max_contradiction": 0.083647,
+    "best_doc_idx": 13,
+    "best_doc_chunk": "Goel and Ors."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Allowing the plea, the court observed that the judge, who had to spend his hard-earned savings for COVID-19 treatment to save his life, cannot be simply told that he should seek refund from the hospital since it failed to abide by the Delhi government's circular.:::mnli-base": {
+    "hallucination_score": 0.795936,
+    "support_score": -0.591873,
+    "max_entailment": 0.398889,
+    "max_contradiction": 0.990762,
+    "best_doc_idx": 10,
+    "best_doc_chunk": "He submits that the petitioner cannot be faulted or penalised for the\nrespondent no.5 charging amounts higher than what was prescribed by the\nrespondent nos.1 to 3 and in case, the respondent no.5 has acted in violation\nof the circular dated 20.06.2020, it is for the respondent nos.1 to 3 to take\naction against the respondent no.5, and make recoveries, if any, from the\nsaid respondent."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::\"This Court does not deem it appropriate or necessary to delve into the validity of the circular dated 20.06.2020, in the present petition, where an officer of Delhi Higher Judicial Service is seeking simpliciter reimbursement of the amount for the bona fide expenses incurred by him for treatment at the respondent no.5 hospital for Covid-19, when the city was engulfed with the second wave of the pandemic,\" said the court.:::mnli-base": {
+    "hallucination_score": 0.735873,
+    "support_score": -0.471746,
+    "max_entailment": 0.513411,
+    "max_contradiction": 0.985157,
+    "best_doc_idx": 30,
+    "best_doc_chunk": "I am, therefore, unable to\naccept Mrs.Ahlawat\u2019s plea that the respondent no.5 should be directed to\nexplain its stand in the present writ petition regarding its action of charging\namounts higher than the ones prescribed in the circular dated 20.06.2020, or\nshould be directed to refund the amount of Rs."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Justice Palli however rejected Delhi Government's submission that the hospital should be directed to explain its stand regarding its action of charging higher amounts than the ones prescribed in the circular or that it should be directed to refund the balance amount.:::mnli-base": {
+    "hallucination_score": 0.604577,
+    "support_score": -0.209153,
+    "max_entailment": 0.034389,
+    "max_contradiction": 0.243542,
+    "best_doc_idx": 45,
+    "best_doc_chunk": "A citizen is a mere spectator to what\nState authority do and decide."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Referring to the high court's ruling in Sqn.:::mnli-base": {
+    "hallucination_score": 0.822564,
+    "support_score": -0.645128,
+    "max_entailment": 0.272629,
+    "max_contradiction": 0.917756,
+    "best_doc_idx": 11,
+    "best_doc_chunk": "In support of his plea, that once it is admitted that the entire\nsum of Rs.24,02,380/- was spent by the petitioner for his medical treatment,\nwhich he was compelled to take from respondent no.5 on account of the\ngrave threat to his life, and would therefore be entitled to reimbursement of\nthe entire amount, he places reliance on the decisions of this Court in Sqn."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Commander Randeep Kumar Rana vs. Union of India, the court said a division bench while dealing with a case, has held the employer was under an obligation to pay to the government employee, and could make appropriate recoveries in accordance with law, from the hospital which had overcharged him.:::mnli-base": {
+    "hallucination_score": 0.932367,
+    "support_score": -0.864733,
+    "max_entailment": 0.043755,
+    "max_contradiction": 0.908488,
+    "best_doc_idx": 34,
+    "best_doc_chunk": "The\nrelevant extract reads as under:\n\u201c5."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::\"In the light of the aforesaid, I have no hesitation in holding that the respondent nos.1 to 3 ought to forthwith reimburse the petitioner by paying him the differential amount of Rs.16,93,880/-, and if permissible, recover the same from the respondent no.5,\" the court said.:::mnli-base": {
+    "hallucination_score": 0.877986,
+    "support_score": -0.755972,
+    "max_entailment": 0.237376,
+    "max_contradiction": 0.993349,
+    "best_doc_idx": 10,
+    "best_doc_chunk": "He submits that the petitioner cannot be faulted or penalised for the\nrespondent no.5 charging amounts higher than what was prescribed by the\nrespondent nos.1 to 3 and in case, the respondent no.5 has acted in violation\nof the circular dated 20.06.2020, it is for the respondent nos.1 to 3 to take\naction against the respondent no.5, and make recoveries, if any, from the\nsaid respondent."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::However, Justice Palli clarified that the court has not expressed any opinion on the validity of the circular and said it will be open for the authorities to pursue legal remedy against the hospital \"including taking penal action\" and \"recovery of any amount charged in excess.\":::mnli-base": {
+    "hallucination_score": 0.963612,
+    "support_score": -0.927224,
+    "max_entailment": 0.040745,
+    "max_contradiction": 0.967969,
+    "best_doc_idx": 13,
+    "best_doc_chunk": "Goel and Ors."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::\"The writ petition is, accordingly, allowed by directing the respondent nos.1 to 3 to pay within four weeks the balance amount of Rs.16,93,880/- as noted in the communication dated 02.05.2022 issued by the respondent no.3 to the petitioner,\" the court said.:::mnli-base": {
+    "hallucination_score": 0.875001,
+    "support_score": -0.750002,
+    "max_entailment": 0.015354,
+    "max_contradiction": 0.765356,
+    "best_doc_idx": 45,
+    "best_doc_chunk": "A citizen is a mere spectator to what\nState authority do and decide."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Senior Advocate J.P.:::mnli-base": {
+    "hallucination_score": 0.930235,
+    "support_score": -0.86047,
+    "max_entailment": 0.135921,
+    "max_contradiction": 0.99639,
+    "best_doc_idx": 0,
+    "best_doc_chunk": "The petitioner, who is a serving officer of the Delhi Higher Judicial\nServices, and is currently posted as the Additional District Judge- 02 South\nDistrict Saket Courts New Delhi, has approached this Court being aggrieved\nby the refusal of the respondent nos."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Sengh, representing Kumar, earlier argued there were no hospital beds available for his treatment in any of the empanelled hospitals of the government and due to his dropping levels of oxygen, he had to be rushed to the nearest hospital.:::mnli-base": {
+    "hallucination_score": 0.57091,
+    "support_score": -0.14182,
+    "max_entailment": 0.251532,
+    "max_contradiction": 0.393352,
+    "best_doc_idx": 3,
+    "best_doc_chunk": "It is also undisputed that since at that stage, there were no hospital\nbeds available for his treatment in an empanelled hospital in the NCT of\nDelhi, the petitioner due his dropping levels of oxygen , had to be rushed to\nthe nearest hospital, being the respondent no.5/hospital, where he remained\non ventilator for a period of three weeks."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::\"The petitioner, who was in a helpless state at that stage, had no other option but to pay the entire amount of Rs. 24,02,380/- as demanded by respondent no.5, against appropriate receipts,\" Sengh submitted.:::mnli-base": {
+    "hallucination_score": 0.448245,
+    "support_score": 0.10351,
+    "max_entailment": 0.993267,
+    "max_contradiction": 0.889757,
+    "best_doc_idx": 4,
+    "best_doc_chunk": "The petitioner, who was in a\nhelpless state at that stage, had no other option but to pay the entire amount\nof Rs."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Sengh argued that the judicial officer cannot be faulted or penalised for the act of the hospital charging amounts higher than what was prescribed by the authorities.:::mnli-base": {
+    "hallucination_score": 0.6948,
+    "support_score": -0.3896,
+    "max_entailment": 0.587879,
+    "max_contradiction": 0.97748,
+    "best_doc_idx": 33,
+    "best_doc_chunk": "Commander Randeep Kumar Rana (supra), wherein the Division\nBench while dealing with a case, where the hospital had charged over and\nabove package rates, held that the employer was under an obligation to pay\nto the government employee, and could make appropriate recoveries in\naccordance with law, from the hospital which had overcharged him."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::He submitted that it was for the concerned authorities to take action against the hospital in case it had acted in violation of the circular in question.:::mnli-base": {
+    "hallucination_score": 0.962351,
+    "support_score": -0.924701,
+    "max_entailment": 0.063585,
+    "max_contradiction": 0.988287,
+    "best_doc_idx": 46,
+    "best_doc_chunk": "If the hospital has charged over and\nabove the package rate, the respondent is under an obligation to pay\nto such charges as the petitioner has incurred over package rates at\nthe first instance and if in law state can recover from the hospital\nconcerned, they may do so but they cannot deny their liability to pay\nto the Government employee who is entitled for medical\nreimbursement.\u201d"
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::On the other hand, the Delhi Government submitted that the hospital should be directed to explain as to why it had not abided by the Delhi Government's circular.:::mnli-base": {
+    "hallucination_score": 0.946723,
+    "support_score": -0.893446,
+    "max_entailment": 0.005529,
+    "max_contradiction": 0.898975,
+    "best_doc_idx": 45,
+    "best_doc_chunk": "A citizen is a mere spectator to what\nState authority do and decide."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::\"The said respondent, who has charged the petitioner way above the rates prescribed in the circular dated 20.06.2020, should be directed to refund the excessive amounts charged from the petitioner,\" advocate Avnish Ahlawat submitted.:::mnli-base": {
+    "hallucination_score": 0.877349,
+    "support_score": -0.754697,
+    "max_entailment": 0.156634,
+    "max_contradiction": 0.911331,
+    "best_doc_idx": 47,
+    "best_doc_chunk": "In the light of the aforesaid, I have no hesitation in holding that the\nrespondent nos.1 to 3 ought to forthwith reimburse the petitioner by paying\nhim the differential amount of Rs.16,93,880/-, and if permissible, recover\nthe same from the respondent no.5."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::Title: DINESH KUMAR v. GOVERNMENT OF NATIONAL CAPITAL TERRITORY OF DELHI & ORS.:::mnli-base": {
+    "hallucination_score": 0.81089,
+    "support_score": -0.621779,
+    "max_entailment": 0.265734,
+    "max_contradiction": 0.887513,
+    "best_doc_idx": 12,
+    "best_doc_chunk": "Commander Randeep Kumar Rana vs. Union of India, (2004) SCC Online\nDel 333 and B.R."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::The Delhi High Court on Tuesday directed the Delhi Government to pay over Rs. 31 lakhs to a senior judicial officer, who is an Additional District Judge in Saket Courts, as reimbursement for the expenses incurred by him for his COVID-19 treatment last year.:::mnli-base": {
+    "hallucination_score": 0.944242,
+    "support_score": -0.888484,
+    "max_entailment": 0.029757,
+    "max_contradiction": 0.918241,
+    "best_doc_idx": 8,
+    "best_doc_chunk": "The\nrespondent nos."
+  },
+  "8f31fe91eba8c2d330ff7ee0cb126e32:::The High Court directed the petitioner to deposit an exemplary security sum of Rs. 15,00,000 with the Prime Minister's National Relief Fund within four weeks.:::mnli-base": {
+    "hallucination_score": 0.954645,
+    "support_score": -0.909291,
+    "max_entailment": 0.076541,
+    "max_contradiction": 0.985831,
+    "best_doc_idx": 31,
+    "best_doc_chunk": "16,93,880/-."
+  }
+}

@@ -5,3 +5,12 @@ nltk>=3.8.1
 pysbd>=0.3.4
 numpy>=1.24.0
 scikit-learn>=1.3.0
+
+# Phase 3: Approach A (SummaC NLI)
+torch>=2.0.0            # Deep learning runtime (PyTorch CPU build)
+huggingface-hub==0.17.0 # Pinned to satisfy summac 0.0.4 constraint
+transformers==4.33.3    # Cross-encoder backbone compatible with huggingface-hub 0.17.0
+summac==0.0.4           # Zero-shot NLI consistency evaluation library
+sentencepiece>=0.2.0    # Tokenizer dependency for DeBERTa / ALBERT
+protobuf>=3.20.0        # Serialization dependency for Hugging Face models
+matplotlib>=3.7.0       # ROC curves, PR curves, and distribution plots
