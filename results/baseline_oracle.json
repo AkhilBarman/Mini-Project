@@ -1,0 +1,27 @@
+{
+  "timestamp": "2026-10-24T15:29:42.709207",
+  "metadata": {
+    "approach": "Baseline",
+    "model_name": "Oracle (Ground Truth)",
+    "testset_path": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\data\\testset\\testset.csv",
+    "seconds_total": 0.0,
+    "seconds_per_sentence": 0.0
+  },
+  "metrics": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "roc_auc": 1.0,
+    "average_precision": 1.0,
+    "n_pos": 20,
+    "n_neg": 442,
+    "threshold": 0.5,
+    "confusion_matrix": {
+      "tp": 20,
+      "fp": 0,
+      "tn": 442,
+      "fn": 0
+    }
+  }
+}

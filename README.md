@@ -12,7 +12,7 @@ A modular NLP toolkit to detect hallucinations in AI-written summaries of Indian
   - **Approach B (Self-Consistency):** Sample multiple summaries using an open-source LLM and flag sentences unsupported by alternative versions (SelfCheckGPT).
 - **Project Phases:**
   1. **Phase 1: Foundation & Data Pipeline** *(Completed)*
-  2. **Phase 2:** Labelled test set + evaluation framework
+  2. **Phase 2: Labelled Test Set & Evaluation Framework** *(Completed)*
   3. **Phase 3:** Approach A (SummaC NLI pipeline)
   4. **Phase 4:** Approach B (SelfCheckGPT consistency pipeline)
   5. **Phase 5:** Comparative analysis + Streamlit interactive web demo
@@ -23,29 +23,42 @@ A modular NLP toolkit to detect hallucinations in AI-written summaries of Indian
 
 ```text
 hallucination-detector/
-├── README.md                 # Project guide & quickstart
-├── requirements.txt          # Python dependencies (lightweight for Phase 1)
-├── pyproject.toml            # Project packaging & pytest config
-├── .gitignore                # Git exclusions (venv, raw data, caches)
+├── README.md                      # Project guide & quickstart
+├── requirements.txt               # Project dependencies
+├── pyproject.toml                 # Package definition & pytest config
+├── .gitignore                     # Git exclusions (venv, raw data, caches)
+├── AGENTS.md                      # AI agent workflow and project instructions
 ├── src/
 │   └── hd/
-│       ├── __init__.py       # Package entry point
-│       ├── text_utils.py     # Whitespace normaliser & legal sentence splitter
-│       └── data_loader.py    # Robust MILDSum pair loader and validator
+│       ├── __init__.py            # Package root exports
+│       ├── text_utils.py          # Whitespace normaliser & legal sentence splitter
+│       ├── data_loader.py         # Robust MILDSum pair loader and validator
+│       ├── mutations.py           # Phase 2: Rule-based sentence mutators (5 error types)
+│       └── evaluation.py          # Phase 2: Classification/ranking metrics, Timer, results
 ├── scripts/
-│   ├── download_mildsum.py   # Downloader for available MILDSum English samples
-│   ├── prepare_data.py       # Segmenter, sampler, and stats exporter
-│   └── explore_data.py       # CLI exploratory data analysis script
+│   ├── download_mildsum.py        # Downloader for available MILDSum English samples
+│   ├── prepare_data.py            # Preprocesses, segments, and samples pairs
+│   ├── explore_data.py            # CLI exploratory data analysis script
+│   ├── make_candidates.py         # Phase 2: Generates candidate mutations for review
+│   ├── build_testset.py           # Phase 2: Constructs sentence-level testset.csv
+│   ├── evaluate.py                # Phase 2: Evaluates any predictions CSV
+│   └── evaluate_baselines.py      # Phase 2: Runs Oracle and Random baseline scorers
 ├── tests/
-│   ├── test_text_utils.py    # Unit tests for abbreviations, currency, cleaning
-│   └── test_data_loader.py   # Unit tests with isolated mock fixtures
+│   ├── test_text_utils.py         # Tests sentence splitting, abbreviations, currency
+│   ├── test_data_loader.py        # Tests data loader with isolated mock fixtures
+│   ├── test_mutations.py          # Tests 5 mutation types and edge cases
+│   ├── test_build_testset.py      # Tests testset assembly on isolated fixtures
+│   └── test_evaluation.py         # Tests metrics, oracle, random, and timer
 ├── notebooks/
-│   └── 01_explore_data.ipynb # Interactive EDA & length distributions
+│   └── 01_explore_data.ipynb      # Interactive EDA & length distributions
 ├── docs/
-│   └── phase1_notes.md       # Detailed technical decisions & findings
-└── data/
-    ├── raw/                  # Downloaded raw text files (not committed to git)
-    └── processed/            # sample_pairs.jsonl and stats.csv
+│   ├── phase1_notes.md            # Phase 1 technical decisions & findings
+│   └── phase2_notes.md            # Phase 2 test set design & baseline results
+├── data/
+│   ├── raw/                       # Downloaded raw text files (not committed to git)
+│   ├── processed/                 # sample_pairs.jsonl and stats.csv
+│   └── testset/                   # candidates.csv and ground truth testset.csv
+└── results/                       # Baseline outputs and evaluation runs (JSON / CSV)
 ```
 
 ---
@@ -68,7 +81,7 @@ python -m venv venv
 # Activate virtual environment
 .\venv\Scripts\Activate.ps1
 
-# Install lightweight Phase 1 dependencies
+# Install project dependencies
 pip install -r requirements.txt
 ```
 
@@ -86,55 +99,67 @@ python3 -m venv venv
 # Activate virtual environment
 source venv/bin/activate
 
-# Install lightweight Phase 1 dependencies
+# Install project dependencies
 pip install -r requirements.txt
 ```
 
 ---
 
-## Running the Pipeline
+## Running the Complete Pipeline
 
-### Step 1: Download Available Raw Samples
-Downloads the 10 available English judgment-summary pairs from the official MILDSum repository:
+### Phase 1: Data Ingestion & Sample Preparation
 ```bash
+# 1. Download available English samples from MILDSum
 python scripts/download_mildsum.py
-```
 
-### Step 2: Prepare & Sample Processed Data
-Cleans text, splits sentences using legal abbreviation rules, and exports outputs:
-```bash
+# 2. Prepare, segment, and sample document pairs
 python scripts/prepare_data.py --n 30 --seed 42
-```
-Outputs created:
-- `data/processed/sample_pairs.jsonl`: Formatted JSONL records with `id`, `judgment_text`, `summary_text`, `judgment_sentences`, and `summary_sentences`.
-- `data/processed/stats.csv`: Character, word, and sentence counts for each document pair.
 
-### Step 3: Run Unit Tests
-Run the test suite verifying sentence splitting, currency preservation (`Rs. 5,000`), abbreviations, and encoding safety:
+# 3. Explore dataset statistics
+python scripts/explore_data.py
+```
+
+### Phase 2: Labelled Test Set & Evaluation Baselines
+```bash
+# 1. Generate candidate mutations across 5 error categories
+python scripts/make_candidates.py --seed 42
+
+# 2. Build the sentence-level testset.csv
+# (Uses reviewed file or development copy)
+python scripts/build_testset.py --from-review data/testset/candidates_UNREVIEWED.csv
+
+# 3. Run Oracle and Random baselines
+python scripts/evaluate_baselines.py
+
+# 4. Evaluate custom prediction scores against testset.csv
+python scripts/evaluate.py --predictions results/baseline_oracle_preds.csv
+```
+
+### Run All Unit Tests
+Run the entire 33-test test suite covering text utilities, data loaders, mutators, test set builders, and evaluation metrics:
 ```bash
 pytest -v
 ```
 
-### Step 4: Explore Data & Length Distributions
-Run via command line:
-```bash
-python scripts/explore_data.py
-```
-Or open Jupyter Notebook:
-```bash
-jupyter notebook notebooks/01_explore_data.ipynb
-```
-
 ---
 
-## Key Technical Decisions in Phase 1
+## Phase 2 Test Set & Baselines Summary
 
-1. **Legal Sentence Splitting:**
-   Indian legal judgments contain frequent abbreviations (`Ors.`, `vs.`, `Sec.`, `Art.`, `No.`, `Hon.`, `J.`) and currency figures (`Rs. 5,000`). Standard sentence splitters break sentences at `Rs.` and abbreviations. We implemented a custom **NLTK Legal Punkt** tokenizer with custom parameters and paragraph-prefix preservation to eliminate false splits.
-2. **Minimal Dependencies:**
-   No neural weights or GPU libraries are loaded in Phase 1. Dependencies are restricted to lightweight utilities (`pandas`, `tqdm`, `pytest`, `nltk`, `pysbd`).
-3. **Data Safety:**
-   Raw files in `data/raw/` are immutable and strictly ignored by git to protect data integrity and avoid committing raw corpora.
+- **Total Testset Sentences:** 462 sentences (across 10 document pairs)
+- **Supported Sentences (Label 0):** 442 rows (95.7%)
+- **Hallucinated Sentences (Label 1):** 20 rows (4.3%)
+- **Error Categories:** `DATE_NUMBER` (3), `PARTY_OUTCOME` (4), `NAME_PLACE` (5), `NEGATION` (3), `FABRICATED` (5)
+
+### Baseline Verification Results
+
+| Metric | Oracle Baseline | Random Baseline (seed=42) |
+| :--- | :--- | :--- |
+| **Accuracy** | **1.0000** | 0.5065 |
+| **Precision** | **1.0000** | 0.0593 |
+| **Recall** | **1.0000** | 0.7000 |
+| **F1 Score** | **1.0000** | 0.1094 |
+| **ROC AUC** | **1.0000** | **0.5807** (Chance $\approx 0.50$) |
+| **Average Precision** | **1.0000** | 0.0511 |
 
 ---
 
