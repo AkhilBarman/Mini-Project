@@ -1,0 +1,58 @@
+{
+  "timestamp": "2026-10-24T18:53:19.135194",
+  "metadata": {
+    "predictions_file": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\results\\approachB_selfcheck_predictions.csv",
+    "testset_file": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\data\\testset\\testset.csv",
+    "threshold": 0.5,
+    "optimistic_best_f1": {
+      "best_threshold": 0.6732,
+      "best_f1": 0.3158,
+      "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+    },
+    "per_error_type_recall": {
+      "DATE_NUMBER": {
+        "total": 3,
+        "detected": 0,
+        "recall": 0.0
+      },
+      "FABRICATED": {
+        "total": 5,
+        "detected": 5,
+        "recall": 1.0
+      },
+      "NAME_PLACE": {
+        "total": 3,
+        "detected": 0,
+        "recall": 0.0
+      },
+      "NEGATION": {
+        "total": 2,
+        "detected": 0,
+        "recall": 0.0
+      },
+      "PARTY_OUTCOME": {
+        "total": 3,
+        "detected": 0,
+        "recall": 0.0
+      }
+    },
+    "seconds_total": 0.4968159999999999
+  },
+  "metrics": {
+    "accuracy": 0.9242,
+    "precision": 0.1724,
+    "recall": 0.3125,
+    "f1": 0.2222,
+    "roc_auc": 0.3715,
+    "average_precision": 0.249,
+    "n_pos": 16,
+    "n_neg": 446,
+    "threshold": 0.5,
+    "confusion_matrix": {
+      "tp": 5,
+      "fp": 24,
+      "tn": 422,
+      "fn": 11
+    }
+  }
+}

@@ -17,6 +17,8 @@ from .evaluation import (
     make_comparison_table
 )
 from .approach_a import NLIChecker
+from .sampling import LLMSampler, save_sampled_summaries, load_sampled_summaries
+from .approach_b import SelfCheckChecker
 
 __all__ = [
     "clean_text",
@@ -31,6 +33,10 @@ __all__ = [
     "per_error_type_recall",
     "save_results",
     "make_comparison_table",
-    "NLIChecker"
+    "NLIChecker",
+    "LLMSampler",
+    "save_sampled_summaries",
+    "load_sampled_summaries",
+    "SelfCheckChecker"
 ]
-__version__ = "0.3.0"
+__version__ = "0.4.0"
