@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-24T15:29:42.709207",
+  "timestamp": "2026-10-24T16:07:34.655556",
   "metadata": {
     "approach": "Baseline",
     "model_name": "Oracle (Ground Truth)",
@@ -14,13 +14,13 @@
     "f1": 1.0,
     "roc_auc": 1.0,
     "average_precision": 1.0,
-    "n_pos": 20,
-    "n_neg": 442,
+    "n_pos": 16,
+    "n_neg": 446,
     "threshold": 0.5,
     "confusion_matrix": {
-      "tp": 20,
+      "tp": 16,
       "fp": 0,
-      "tn": 442,
+      "tn": 446,
       "fn": 0
     }
   }

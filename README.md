@@ -124,9 +124,8 @@ python scripts/explore_data.py
 # 1. Generate candidate mutations across 5 error categories
 python scripts/make_candidates.py --seed 42
 
-# 2. Build the sentence-level testset.csv
-# (Uses reviewed file or development copy)
-python scripts/build_testset.py --from-review data/testset/candidates_UNREVIEWED.csv
+# 2. Build the sentence-level testset.csv from reviewed candidates
+python scripts/build_testset.py --from-review data/testset/candidates_reviewed.csv
 
 # 3. Run Oracle and Random baselines
 python scripts/evaluate_baselines.py
@@ -146,20 +145,20 @@ pytest -v
 ## Phase 2 Test Set & Baselines Summary
 
 - **Total Testset Sentences:** 462 sentences (across 10 document pairs)
-- **Supported Sentences (Label 0):** 442 rows (95.7%)
-- **Hallucinated Sentences (Label 1):** 20 rows (4.3%)
-- **Error Categories:** `DATE_NUMBER` (3), `PARTY_OUTCOME` (4), `NAME_PLACE` (5), `NEGATION` (3), `FABRICATED` (5)
+- **Supported Sentences (Label 0):** 446 rows (96.5%)
+- **Hallucinated Sentences (Label 1):** 16 rows (3.5%)
+- **Error Categories:** `DATE_NUMBER` (3), `PARTY_OUTCOME` (3), `NAME_PLACE` (3), `NEGATION` (2), `FABRICATED` (5)
 
 ### Baseline Verification Results
 
 | Metric | Oracle Baseline | Random Baseline (seed=42) |
 | :--- | :--- | :--- |
-| **Accuracy** | **1.0000** | 0.5065 |
-| **Precision** | **1.0000** | 0.0593 |
-| **Recall** | **1.0000** | 0.7000 |
-| **F1 Score** | **1.0000** | 0.1094 |
-| **ROC AUC** | **1.0000** | **0.5807** (Chance $\approx 0.50$) |
-| **Average Precision** | **1.0000** | 0.0511 |
+| **Accuracy** | **1.0000** | 0.5108 |
+| **Precision** | **1.0000** | 0.0551 |
+| **Recall** | **1.0000** | 0.8125 |
+| **F1 Score** | **1.0000** | 0.1032 |
+| **ROC AUC** | **1.0000** | **0.6326** (Near chance $\approx 0.50$) |
+| **Average Precision** | **1.0000** | 0.0476 (Near base rate 3.5%) |
 
 ---
 

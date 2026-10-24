@@ -43,8 +43,11 @@ hallucination-detector/
 │   │   ├── sample_pairs.jsonl
 │   │   └── stats.csv
 │   └── testset/                   # Labelled evaluation test sets (Phase 2)
-│       ├── candidates.csv         # Generated mutation candidates for human review
+│       ├── candidates.csv         # Generated mutation candidates
+│       ├── candidates_reviewed.csv # Human-reviewed candidates (accept, fixed_sentence, notes)
 │       ├── candidates_UNREVIEWED.csv # Auto-accepted development copy
+│       ├── review_report.md       # Review breakdown and acceptance decisions
+│       ├── spot_check.csv         # 15-row review sample with NEEDS HUMAN CHECK marks
 │       └── testset.csv            # Final ground-truth sentence evaluation dataset
 ├── docs/
 │   ├── phase1_notes.md            # Technical notes and findings from Phase 1
@@ -88,9 +91,9 @@ pip install -r requirements.txt
 python scripts/download_mildsum.py
 python scripts/prepare_data.py --n 30 --seed 42
 
-# 4. Phase 2: Test Set Generation
+# 4. Phase 2: Test Set Generation & Review
 python scripts/make_candidates.py --seed 42
-python scripts/build_testset.py --from-review data/testset/candidates.csv
+python scripts/build_testset.py --from-review data/testset/candidates_reviewed.csv
 
 # 5. Phase 2: Evaluation & Baselines
 python scripts/evaluate_baselines.py

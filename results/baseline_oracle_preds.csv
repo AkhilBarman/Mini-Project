@@ -65,7 +65,7 @@ Sample_2_orig_s16,0.0,0.0
 Sample_2_orig_s17,0.0,0.0
 Sample_2_orig_s18,0.0,0.0
 Sample_2_edited_s00,1.0,0.0
-Sample_2_edited_s01,1.0,0.0
+Sample_2_edited_s01,0.0,0.0
 Sample_2_edited_s02,0.0,0.0
 Sample_2_edited_s03,0.0,0.0
 Sample_2_edited_s04,0.0,0.0
@@ -315,7 +315,7 @@ Sample_7_orig_s14,0.0,0.0
 Sample_7_orig_s15,0.0,0.0
 Sample_7_orig_s16,0.0,0.0
 Sample_7_edited_s00,1.0,0.0
-Sample_7_edited_s01,1.0,0.0
+Sample_7_edited_s01,0.0,0.0
 Sample_7_edited_s02,0.0,0.0
 Sample_7_edited_s03,0.0,0.0
 Sample_7_edited_s04,0.0,0.0
@@ -344,7 +344,7 @@ Sample_8_orig_s09,0.0,0.0
 Sample_8_orig_s10,0.0,0.0
 Sample_8_orig_s11,0.0,0.0
 Sample_8_edited_s00,0.0,0.0
-Sample_8_edited_s01,1.0,0.0
+Sample_8_edited_s01,0.0,0.0
 Sample_8_edited_s02,1.0,0.0
 Sample_8_edited_s03,0.0,0.0
 Sample_8_edited_s04,0.0,0.0
@@ -378,7 +378,7 @@ Sample_9_orig_s19,0.0,0.0
 Sample_9_orig_s20,0.0,0.0
 Sample_9_orig_s21,0.0,0.0
 Sample_9_edited_s00,1.0,0.0
-Sample_9_edited_s01,1.0,0.0
+Sample_9_edited_s01,0.0,0.0
 Sample_9_edited_s02,0.0,0.0
 Sample_9_edited_s03,0.0,0.0
 Sample_9_edited_s04,0.0,0.0

@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-24T15:29:50.823580",
+  "timestamp": "2026-10-24T16:07:43.138590",
   "metadata": {
     "predictions_file": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\results\\baseline_oracle_preds.csv",
     "testset_file": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\data\\testset\\testset.csv",
@@ -21,18 +21,18 @@
         "recall": 1.0
       },
       "NAME_PLACE": {
-        "total": 5,
-        "detected": 5,
-        "recall": 1.0
-      },
-      "NEGATION": {
         "total": 3,
         "detected": 3,
         "recall": 1.0
       },
+      "NEGATION": {
+        "total": 2,
+        "detected": 2,
+        "recall": 1.0
+      },
       "PARTY_OUTCOME": {
-        "total": 4,
-        "detected": 4,
+        "total": 3,
+        "detected": 3,
         "recall": 1.0
       }
     },
@@ -45,13 +45,13 @@
     "f1": 1.0,
     "roc_auc": 1.0,
     "average_precision": 1.0,
-    "n_pos": 20,
-    "n_neg": 442,
+    "n_pos": 16,
+    "n_neg": 446,
     "threshold": 0.5,
     "confusion_matrix": {
-      "tp": 20,
+      "tp": 16,
       "fp": 0,
-      "tn": 442,
+      "tn": 446,
       "fn": 0
     }
   }
