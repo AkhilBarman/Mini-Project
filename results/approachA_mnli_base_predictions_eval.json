@@ -1,9 +1,9 @@
 {
-  "timestamp": "2026-10-24T18:16:12.067844",
+  "timestamp": "2026-10-24T18:25:16.327347",
   "metadata": {
     "predictions_file": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\results\\approachA_mnli_base_predictions.csv",
     "testset_file": "C:\\Users\\Akhil Barman\\OneDrive\\Desktop\\3rd YEAR UAI\\MiniProject\\Mini Project\\hallucination-detector\\data\\testset\\testset.csv",
-    "threshold": 0.5,
+    "threshold": 0.85,
     "optimistic_best_f1": {
       "best_threshold": 0.9405,
       "best_f1": 0.2609,
@@ -39,19 +39,19 @@
     "seconds_total": 107.01412299999998
   },
   "metrics": {
-    "accuracy": 0.2727,
-    "precision": 0.0455,
+    "accuracy": 0.7229,
+    "precision": 0.1111,
     "recall": 1.0,
-    "f1": 0.087,
+    "f1": 0.2,
     "roc_auc": 0.8585,
     "average_precision": 0.1382,
     "n_pos": 16,
     "n_neg": 446,
-    "threshold": 0.5,
+    "threshold": 0.85,
     "confusion_matrix": {
       "tp": 16,
-      "fp": 336,
-      "tn": 110,
+      "fp": 128,
+      "tn": 318,
       "fn": 0
     }
   }
