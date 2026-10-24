@@ -198,5 +198,21 @@
     "max_contradiction": 0.985831,
     "best_doc_idx": 31,
     "best_doc_chunk": "16,93,880/-."
+  },
+  "d089e77650d89dc88ca7708df0aa799a:::The Jammu and Kashmir and Ladakh High Court on Thursday ruled that retrospective operation of a Government Order cannot be permitted particularly where it is merely an executive order, and not a legislation.:::mnli-base": {
+    "hallucination_score": 0.931693,
+    "support_score": -0.863386,
+    "max_entailment": 0.075631,
+    "max_contradiction": 0.939017,
+    "best_doc_idx": 50,
+    "best_doc_chunk": "Alloys\nPvt."
+  },
+  "d089e77650d89dc88ca7708df0aa799a:::A bench comprising Justice Waseem Sadiq Nargal observed,\n\"As every Government/executive order by virtue of a policy has prospective operation, it can in no way be applied retrospectively by infusing life in a Government order and interpreting differently, when the explicit language leads to an irresistible conclusion\".:::mnli-base": {
+    "hallucination_score": 0.748801,
+    "support_score": -0.497602,
+    "max_entailment": 0.237908,
+    "max_contradiction": 0.735511,
+    "best_doc_idx": 27,
+    "best_doc_chunk": "Shree Guru Kirpa\nAlloys Pvt."
   }
 }
