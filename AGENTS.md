@@ -22,7 +22,7 @@ language. If something is unclear or blocked, ask. Do not guess.
 ## Phase roadmap (update the status at the end of every phase)
 1. Foundation and data pipeline: DONE
 2. Labelled test set + evaluation framework: DONE
-3. Approach A (SummaC NLI): TODO
+3. Approach A (SummaC NLI): DONE
 4. Approach B (LLM sampling + SelfCheckGPT): TODO
 5. Comparison + Streamlit demo + final docs: TODO
 Work only on the phase you were asked to do.
