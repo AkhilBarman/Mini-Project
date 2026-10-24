@@ -1,0 +1,335 @@
+{
+  "generated_at": "2026-10-24T19:02:26.304617",
+  "runs": [
+    {
+      "name": "Oracle Baseline",
+      "metrics": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0,
+        "average_precision": 1.0,
+        "n_pos": 16,
+        "n_neg": 446,
+        "threshold": 0.5,
+        "confusion_matrix": {
+          "tp": 16,
+          "fp": 0,
+          "tn": 446,
+          "fn": 0
+        }
+      },
+      "metadata": {
+        "per_error_type_recall": {
+          "DATE_NUMBER": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "FABRICATED": {
+            "total": 5,
+            "detected": 5,
+            "recall": 1.0
+          },
+          "NAME_PLACE": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "NEGATION": {
+            "total": 2,
+            "detected": 2,
+            "recall": 1.0
+          },
+          "PARTY_OUTCOME": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          }
+        },
+        "seconds_total": 0.01,
+        "optimistic_best_f1": {
+          "best_threshold": 0.01,
+          "best_f1": 1.0,
+          "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+        }
+      }
+    },
+    {
+      "name": "Random Baseline",
+      "metrics": {
+        "accuracy": 0.5108,
+        "precision": 0.0551,
+        "recall": 0.8125,
+        "f1": 0.1032,
+        "roc_auc": 0.6326,
+        "average_precision": 0.0476,
+        "n_pos": 16,
+        "n_neg": 446,
+        "threshold": 0.5,
+        "confusion_matrix": {
+          "tp": 13,
+          "fp": 223,
+          "tn": 223,
+          "fn": 3
+        }
+      },
+      "metadata": {
+        "per_error_type_recall": {
+          "DATE_NUMBER": {
+            "total": 3,
+            "detected": 2,
+            "recall": 0.6667
+          },
+          "FABRICATED": {
+            "total": 5,
+            "detected": 4,
+            "recall": 0.8
+          },
+          "NAME_PLACE": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "NEGATION": {
+            "total": 2,
+            "detected": 2,
+            "recall": 1.0
+          },
+          "PARTY_OUTCOME": {
+            "total": 3,
+            "detected": 2,
+            "recall": 0.6667
+          }
+        },
+        "seconds_total": 0.01,
+        "optimistic_best_f1": {
+          "best_threshold": 0.4555,
+          "best_f1": 0.1049,
+          "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+        }
+      }
+    },
+    {
+      "name": "Approach A (SummaC NLI - Default)",
+      "metrics": {
+        "accuracy": 0.2727,
+        "precision": 0.0455,
+        "recall": 1.0,
+        "f1": 0.087,
+        "roc_auc": 0.8585,
+        "average_precision": 0.1382,
+        "n_pos": 16,
+        "n_neg": 446,
+        "threshold": 0.5,
+        "confusion_matrix": {
+          "tp": 16,
+          "fp": 336,
+          "tn": 110,
+          "fn": 0
+        }
+      },
+      "metadata": {
+        "per_error_type_recall": {
+          "DATE_NUMBER": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "FABRICATED": {
+            "total": 5,
+            "detected": 5,
+            "recall": 1.0
+          },
+          "NAME_PLACE": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "NEGATION": {
+            "total": 2,
+            "detected": 2,
+            "recall": 1.0
+          },
+          "PARTY_OUTCOME": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          }
+        },
+        "seconds_total": 107.01412299999998,
+        "optimistic_best_f1": {
+          "best_threshold": 0.9405,
+          "best_f1": 0.2609,
+          "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+        }
+      }
+    },
+    {
+      "name": "Approach A (SummaC NLI - Calibrated)",
+      "metrics": {
+        "accuracy": 0.7229,
+        "precision": 0.1111,
+        "recall": 1.0,
+        "f1": 0.2,
+        "roc_auc": 0.8585,
+        "average_precision": 0.1382,
+        "n_pos": 16,
+        "n_neg": 446,
+        "threshold": 0.85,
+        "confusion_matrix": {
+          "tp": 16,
+          "fp": 128,
+          "tn": 318,
+          "fn": 0
+        }
+      },
+      "metadata": {
+        "per_error_type_recall": {
+          "DATE_NUMBER": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "FABRICATED": {
+            "total": 5,
+            "detected": 5,
+            "recall": 1.0
+          },
+          "NAME_PLACE": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "NEGATION": {
+            "total": 2,
+            "detected": 2,
+            "recall": 1.0
+          },
+          "PARTY_OUTCOME": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          }
+        },
+        "seconds_total": 107.01412299999998,
+        "optimistic_best_f1": {
+          "best_threshold": 0.9405,
+          "best_f1": 0.2609,
+          "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+        }
+      }
+    },
+    {
+      "name": "Approach B (SelfCheckGPT)",
+      "metrics": {
+        "accuracy": 0.9242,
+        "precision": 0.1724,
+        "recall": 0.3125,
+        "f1": 0.2222,
+        "roc_auc": 0.3715,
+        "average_precision": 0.249,
+        "n_pos": 16,
+        "n_neg": 446,
+        "threshold": 0.5,
+        "confusion_matrix": {
+          "tp": 5,
+          "fp": 24,
+          "tn": 422,
+          "fn": 11
+        }
+      },
+      "metadata": {
+        "per_error_type_recall": {
+          "DATE_NUMBER": {
+            "total": 3,
+            "detected": 0,
+            "recall": 0.0
+          },
+          "FABRICATED": {
+            "total": 5,
+            "detected": 5,
+            "recall": 1.0
+          },
+          "NAME_PLACE": {
+            "total": 3,
+            "detected": 0,
+            "recall": 0.0
+          },
+          "NEGATION": {
+            "total": 2,
+            "detected": 0,
+            "recall": 0.0
+          },
+          "PARTY_OUTCOME": {
+            "total": 3,
+            "detected": 0,
+            "recall": 0.0
+          }
+        },
+        "seconds_total": 0.4968159999999999,
+        "optimistic_best_f1": {
+          "best_threshold": 0.6732,
+          "best_f1": 0.3158,
+          "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+        }
+      }
+    },
+    {
+      "name": "Hybrid (NLI + SelfCheck)",
+      "metrics": {
+        "accuracy": 0.6883,
+        "precision": 0.1,
+        "recall": 1.0,
+        "f1": 0.1818,
+        "roc_auc": 0.8521,
+        "average_precision": 0.1361,
+        "n_pos": 16,
+        "n_neg": 446,
+        "threshold": 0.5,
+        "confusion_matrix": {
+          "tp": 16,
+          "fp": 144,
+          "tn": 302,
+          "fn": 0
+        }
+      },
+      "metadata": {
+        "per_error_type_recall": {
+          "DATE_NUMBER": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "FABRICATED": {
+            "total": 5,
+            "detected": 5,
+            "recall": 1.0
+          },
+          "NAME_PLACE": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          },
+          "NEGATION": {
+            "total": 2,
+            "detected": 2,
+            "recall": 1.0
+          },
+          "PARTY_OUTCOME": {
+            "total": 3,
+            "detected": 3,
+            "recall": 1.0
+          }
+        },
+        "seconds_total": 107.51093899999998,
+        "optimistic_best_f1": {
+          "best_threshold": 0.8118,
+          "best_f1": 0.2727,
+          "note": "OPTIMISTIC: Threshold tuned and evaluated on the same evaluation dataset."
+        }
+      }
+    }
+  ]
+}

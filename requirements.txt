@@ -14,3 +14,6 @@ summac==0.0.4           # Zero-shot NLI consistency evaluation library
 sentencepiece>=0.2.0    # Tokenizer dependency for DeBERTa / ALBERT
 protobuf>=3.20.0        # Serialization dependency for Hugging Face models
 matplotlib>=3.7.0       # ROC curves, PR curves, and distribution plots
+
+# Phase 5: Interactive Web Demo & Comparison
+streamlit>=1.30.0       # Interactive web interface for hallucination inspection

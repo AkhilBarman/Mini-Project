@@ -19,6 +19,14 @@ from .evaluation import (
 from .approach_a import NLIChecker
 from .sampling import LLMSampler, save_sampled_summaries, load_sampled_summaries
 from .approach_b import SelfCheckChecker
+from .comparison import (
+    calibrate_score,
+    compute_hybrid_scores,
+    build_comparison_dataframe,
+    build_error_breakdown_dataframe,
+    plot_comparison_dashboard,
+    dataframe_to_markdown
+)
 
 __all__ = [
     "clean_text",
@@ -37,6 +45,12 @@ __all__ = [
     "LLMSampler",
     "save_sampled_summaries",
     "load_sampled_summaries",
-    "SelfCheckChecker"
+    "SelfCheckChecker",
+    "calibrate_score",
+    "compute_hybrid_scores",
+    "build_comparison_dataframe",
+    "build_error_breakdown_dataframe",
+    "plot_comparison_dashboard",
+    "dataframe_to_markdown"
 ]
-__version__ = "0.4.0"
+__version__ = "0.5.0"

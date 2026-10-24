@@ -24,14 +24,14 @@ language. If something is unclear or blocked, ask. Do not guess.
 2. Labelled test set + evaluation framework: DONE
 3. Approach A (SummaC NLI): DONE
 4. Approach B (LLM sampling + SelfCheckGPT): DONE
-5. Comparison + Streamlit demo + final docs: IN PROGRESS
+5. Comparison + Streamlit demo + final docs: DONE
 Work only on the phase you were asked to do.
 
 ## Repo map
 ```text
 hallucination-detector/
-├── README.md                      # Project overview and setup instructions
-├── requirements.txt               # Lightweight project dependencies
+├── README.md                      # Project overview, benchmark tables, and setup instructions
+├── requirements.txt               # Project dependencies including PyTorch, SummaC, Streamlit
 ├── pyproject.toml                 # Package definition and pytest configuration
 ├── .gitignore                     # Git ignore rules (venv, raw data, caches)
 ├── AGENTS.md                      # Instructions for AI agents working in this repository
@@ -42,19 +42,37 @@ hallucination-detector/
 │   ├── processed/                 # Segmented JSONL records and stats.csv
 │   │   ├── sample_pairs.jsonl
 │   │   └── stats.csv
+│   ├── sampled_summaries/         # Phase 4: Stochastic LLM summary samples (N=3)
 │   └── testset/                   # Labelled evaluation test sets (Phase 2)
 │       ├── candidates.csv         # Generated mutation candidates
 │       ├── candidates_reviewed.csv # Human-reviewed candidates (accept, fixed_sentence, notes)
-│       ├── candidates_UNREVIEWED.csv # Auto-accepted development copy
 │       ├── review_report.md       # Review breakdown and acceptance decisions
-│       ├── spot_check.csv         # 15-row review sample with NEEDS HUMAN CHECK marks
-│       └── testset.csv            # Final ground-truth sentence evaluation dataset
+│       └── testset.csv            # Final ground-truth sentence evaluation dataset (462 sents)
+├── demo/
+│   └── app.py                     # Phase 5: Interactive Streamlit Web Platform
 ├── docs/
-│   ├── phase1_notes.md            # Technical notes and findings from Phase 1
-│   └── phase2_notes.md            # Test set design and evaluation framework notes
+│   ├── phase1_notes.md            # Ingestion, preprocessing, and exploratory statistics
+│   ├── phase2_notes.md            # Test set design, mutations, and baseline evaluation
+│   ├── phase3_notes.md            # Approach A (SummaC NLI, threshold calibration, ROC-AUC)
+│   ├── phase4_notes.md            # Approach B (SelfCheckGPT, token containment, latency)
+│   └── phase5_notes.md            # Final comparative analysis, hybrid ensemble, viva notes
 ├── notebooks/
-│   └── 01_explore_data.ipynb      # Phase 1 data exploration notebook
-├── results/                       # Evaluation metrics and baseline results (Phase 2+)
+│   ├── 01_explore_data.ipynb      # Phase 1 data exploration notebook
+│   ├── 02_run_approach_a_colab.ipynb # Phase 3: 1-click Colab GPU inference for SummaC
+│   └── 03_run_approach_b_colab.ipynb # Phase 4: 1-click Colab GPU inference for SelfCheckGPT
+├── results/                       # Predictions, metrics JSONs, ROC and comparison charts
+│   ├── approachA_mnli_base_predictions.csv
+│   ├── approachA_mnli_base_predictions_eval.json
+│   ├── approachB_selfcheck_predictions.csv
+│   ├── approachB_selfcheck_predictions_eval.json
+│   ├── approach_hybrid_predictions.csv
+│   ├── baseline_oracle_preds.csv
+│   ├── baseline_random_preds.csv
+│   ├── comparison_summary.csv
+│   ├── comparison_summary.md
+│   ├── comparison_summary.json
+│   ├── comparison_breakdown.png   # Phase 5: 4-panel comparative visualization
+│   └── roc_curve_approach_a.png   # Phase 3: Approach A ROC curve
 ├── scripts/
 │   ├── download_mildsum.py        # Automated downloader for English MILDSum samples
 │   ├── prepare_data.py            # Preprocesses, segments, and samples pairs
@@ -62,20 +80,31 @@ hallucination-detector/
 │   ├── make_candidates.py         # Phase 2: Generates candidate sentence mutations
 │   ├── build_testset.py           # Phase 2: Builds ground truth testset.csv
 │   ├── evaluate.py                # Phase 2: Evaluates any predictions CSV
-│   └── evaluate_baselines.py      # Phase 2: Runs Oracle and Random baseline scorers
+│   ├── evaluate_baselines.py      # Phase 2: Runs Oracle and Random baseline scorers
+│   ├── run_approach_a.py          # Phase 3: SummaC NLI evaluation runner
+│   ├── sample_summaries.py        # Phase 4: Generates stochastic summary samples
+│   ├── run_approach_b.py          # Phase 4: SelfCheckGPT consistency checker
+│   └── compare_approaches.py      # Phase 5: Comparative evaluation & ensembling
 ├── src/
 │   └── hd/
 │       ├── __init__.py            # Package root exports
 │       ├── data_loader.py         # Loads and validates raw MILDSum judgment-summary pairs
 │       ├── text_utils.py          # Whitespace normaliser and legal sentence splitter
 │       ├── mutations.py           # Phase 2: Deterministic sentence-level rule mutators
-│       └── evaluation.py          # Phase 2: Metric computations, timer, and result exports
+│       ├── evaluation.py          # Phase 2: Metric computations, timer, and result exports
+│       ├── approach_a.py          # Phase 3: SummaC Cross-Encoder NLI engine
+│       ├── sampling.py            # Phase 4: LLM sampling pipeline (Ollama / Transformers)
+│       ├── approach_b.py          # Phase 4: SelfCheckGPT consistency checker engine
+│       └── comparison.py          # Phase 5: Comparison, calibration, and dashboard visualizer
 └── tests/
     ├── test_data_loader.py        # Tests data loader with isolated mock fixtures
     ├── test_text_utils.py         # Tests sentence splitting, legal abbreviations, currency
     ├── test_mutations.py          # Phase 2: Tests all mutation types and edge cases
     ├── test_build_testset.py      # Phase 2: Tests testset creation and row indexing
-    └── test_evaluation.py         # Phase 2: Tests metrics calculation, oracle, and baselines
+    ├── test_evaluation.py         # Phase 2: Tests metrics calculation, oracle, and baselines
+    ├── test_approach_a.py         # Phase 3: Tests SummaC NLI scoring and caching
+    ├── test_approach_b.py         # Phase 4: Tests SelfCheckGPT containment and sampling
+    └── test_comparison.py         # Phase 5: Tests calibration, hybrid ensembling, and tables
 ```
 
 ## Commands
@@ -87,20 +116,14 @@ cd hallucination-detector
 # 2. Dependency Installation
 pip install -r requirements.txt
 
-# 3. Data Ingestion & Sampling
-python scripts/download_mildsum.py
-python scripts/prepare_data.py --n 30 --seed 42
-
-# 4. Phase 2: Test Set Generation & Review
-python scripts/make_candidates.py --seed 42
-python scripts/build_testset.py --from-review data/testset/candidates_reviewed.csv
-
-# 5. Phase 2: Evaluation & Baselines
-python scripts/evaluate_baselines.py
-python scripts/evaluate.py --predictions results/baseline_oracle_preds.csv
-
-# 6. Test Suite Execution
+# 3. Test Suite Execution (51 passing unit tests)
 pytest -v
+
+# 4. Phase 5: Run Full Comparative Evaluation & Generate Visual Dashboard
+python scripts/compare_approaches.py
+
+# 5. Phase 5: Launch Interactive Streamlit Web Platform
+streamlit run demo/app.py
 ```
 
 ## Conventions every phase must follow

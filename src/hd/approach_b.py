@@ -17,7 +17,7 @@ import re
 from typing import Any, Callable, Dict, List, Optional
 import numpy as np
 
-from hd.text_utils import split_sentences
+from .text_utils import split_sentences
 
 
 def compute_text_hash(text: str) -> str:
