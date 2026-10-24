@@ -65,6 +65,16 @@ def safe_render_dataframe(df: pd.DataFrame):
             st.dataframe(df)
 
 
+def clean_html(html_str: str) -> str:
+    """
+    Strips leading and trailing indentation from each line.
+    Prevents Markdown from interpreting 4+ spaces of indentation as an indented code block.
+    """
+    if not html_str:
+        return ""
+    return "\n".join(line.strip() for line in html_str.strip().splitlines() if line.strip())
+
+
 # -----------------------------------------------------------------------------
 # Precise Token-Level Hallucination Diff Extractor
 # -----------------------------------------------------------------------------
@@ -216,9 +226,18 @@ MODERN_CSS = """
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
-    /* Global Typography & Font Reset */
-    html, body, [class*="css"], [class*="st-"] {
+    /* Global Typography - Safe targeting without breaking Streamlit icon fonts */
+    html, body, p, h1, h2, h3, h4, label, input, textarea {
         font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+
+    .stMarkdown p, .stMarkdown span {
+        font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    /* Explicitly protect icon fonts from being overridden */
+    [data-testid*="Icon"], [data-testid*="icon"], .material-symbols, .material-symbols-rounded, .material-icons, i, svg {
+        font-family: "Material Symbols Rounded", "Material Icons", sans-serif !important;
     }
 
     /* Container Spacing */
@@ -420,6 +439,55 @@ MODERN_CSS = """
     .diff-badge.bad { color: #fb7185; }
     .diff-badge.good { color: #34d399; }
     .diff-badge.diag { color: #38bdf8; }
+
+    /* Collapsible Inspection Details for Supported Sentences */
+    details.support-details {
+        margin-top: 12px;
+        background: rgba(15, 23, 42, 0.6);
+        border: 1px solid rgba(16, 185, 129, 0.25);
+        border-radius: 8px;
+        overflow: hidden;
+        transition: all 0.2s ease;
+    }
+    details.support-details[open] {
+        border-color: rgba(16, 185, 129, 0.45);
+        background: rgba(15, 23, 42, 0.85);
+    }
+    summary.support-summary {
+        padding: 9px 14px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: #34d399;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        background: rgba(16, 185, 129, 0.08);
+        outline: none;
+        list-style: none;
+    }
+    summary.support-summary:hover {
+        background: rgba(16, 185, 129, 0.16);
+        color: #6ee7b7;
+    }
+    summary.support-summary::-webkit-details-marker {
+        display: none;
+    }
+    .support-content {
+        padding: 12px 14px;
+        border-top: 1px solid rgba(16, 185, 129, 0.15);
+        font-size: 0.85rem;
+        line-height: 1.55;
+    }
+    .support-excerpt-box {
+        background: rgba(15, 23, 42, 0.7);
+        border: 1px solid rgba(16, 185, 129, 0.2);
+        border-radius: 6px;
+        padding: 10px 12px;
+        margin-top: 6px;
+    }
 
     /* Journey Timeline */
     .journey-step {
@@ -634,7 +702,7 @@ with tab_review:
     # Collapsible Source Judgment Viewer
     if show_source:
         st.markdown(
-            f"""
+            clean_html(f"""
             <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(56, 189, 248, 0.25); border-radius: 12px; padding: 16px 20px; margin-bottom: 20px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
                     <strong style="color: #38bdf8;">Court Judgment Record: {selected_case}</strong>
@@ -644,7 +712,7 @@ with tab_review:
                     {judgment_text}
                 </div>
             </div>
-            """,
+            """),
             unsafe_allow_html=True
         )
 
@@ -660,7 +728,7 @@ with tab_review:
     n_tp = int(np.sum((pred_labels == 1) & (true_labels == 1)))
 
     st.markdown(
-        f"""
+        clean_html(f"""
         <div class="kpi-grid">
             <div class="kpi-card blue">
                 <div class="kpi-label">Summary Sentences</div>
@@ -683,7 +751,7 @@ with tab_review:
                 <div class="kpi-sub">{n_tp} of {n_ground_truth_errors} detected by model</div>
             </div>
         </div>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
@@ -760,31 +828,41 @@ with tab_review:
                     </div>
                 </div>
                 """
+                support_html = ""
             else:
                 rendered_text = row["sentence_text"]
                 diff_html = ""
-
-            st.markdown(
-                f"""
-                <div class="sentence-box {card_class}">
-                    <div class="sentence-header">
-                        <div class="sentence-num">Sentence #{idx + 1} &nbsp; {status_tag} {error_tag}</div>
-                        <div class="score-txt">Score: <strong>{score:.4f}</strong> (θ={threshold:.2f})</div>
+                closest_court, match_overlap = find_closest_judgment_sentence(row["sentence_text"], judgment_sents)
+                support_html = f"""
+                <details class="support-details">
+                    <summary class="support-summary">
+                        <span>🔍 Inspect Court Verification Excerpt</span>
+                        <span style="font-size: 0.75rem; color: #34d399; font-weight: 600;">Verified Ground Truth</span>
+                    </summary>
+                    <div class="support-content">
+                        <div style="font-size: 0.78rem; color: #94a3b8; margin-bottom: 8px;">
+                            Hallucination Risk Score: <strong style="color: #34d399; font-family: 'JetBrains Mono', monospace;">{score:.4f}</strong> (Safely below flag threshold θ = {threshold:.2f})
+                        </div>
+                        <div class="support-excerpt-box">
+                            <div style="font-size: 0.75rem; font-weight: 700; color: #34d399; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px;">📜 Closest Source Judgment Excerpt:</div>
+                            <div style="color: #cbd5e1; font-size: 0.85rem; font-style: italic;">&ldquo;{closest_court}&rdquo;</div>
+                        </div>
                     </div>
-                    <div class="sentence-text">{rendered_text}</div>
-                    {diff_html}
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
+                </details>
+                """
 
-            # Optional support inspection for unflagged sentences
-            if not is_flagged:
-                with st.expander(f"Inspect Factual Verification: Sentence #{idx + 1}"):
-                    st.write(f"**Hallucination Risk Score:** `{score:.4f}` (Safely below flag threshold `{threshold:.2f}`)")
-                    st.write(f"**Verification Status:** 🟢 Verified Supported Factual Claim")
-                    closest_court, match_overlap = find_closest_judgment_sentence(row["sentence_text"], judgment_sents)
-                    st.markdown(f"**Closest Source Judgment Excerpt:** *\"{closest_court}\"*")
+            card_html = f"""
+            <div class="sentence-box {card_class}">
+                <div class="sentence-header">
+                    <div class="sentence-num">Sentence #{idx + 1} &nbsp; {status_tag} {error_tag}</div>
+                    <div class="score-txt">Score: <strong>{score:.4f}</strong> (θ={threshold:.2f})</div>
+                </div>
+                <div class="sentence-text">{rendered_text}</div>
+                {diff_html}
+                {support_html}
+            </div>
+            """
+            st.markdown(clean_html(card_html), unsafe_allow_html=True)
 
 
 # =============================================================================
@@ -809,7 +887,7 @@ with tab_compare:
 
     # Consensus Ribbon
     st.markdown(
-        f"""
+        clean_html(f"""
         <div class="consensus-banner">
             <div>
                 <div class="consensus-item-title">Agreement Rate</div>
@@ -832,7 +910,7 @@ with tab_compare:
                 <div style="font-size: 0.75rem; color: #64748b;">Low consistency</div>
             </div>
         </div>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
@@ -864,20 +942,18 @@ with tab_compare:
                 )
                 exp_a_note = f'<div style="font-size: 0.77rem; color: #fda4af; margin-top: 6px; border-top: 1px dashed rgba(244,63,94,0.3); padding-top: 6px;"><strong>Diagnosis:</strong> {exp_a["explanation"]}</div>'
 
-            st.markdown(
-                f"""
-                <div class="sentence-box {'hallucinated' if f_a else 'supported'}" style="padding: 14px 16px;">
-                    <div class="sentence-header">
-                        <span class="sentence-num">#{idx+1}</span>
-                        <span class="tag-pill {'tag-red' if f_a else 'tag-green'}">{'⚠️ Flagged' if f_a else '✓ Supported'}</span>
-                    </div>
-                    <div style="font-size: 0.88rem; color: #e2e8f0;">{row['sentence_text']}</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">NLI Score: <strong>{scores_a[idx]:.4f}</strong></div>
-                    {exp_a_note}
+            card_a_html = f"""
+            <div class="sentence-box {'hallucinated' if f_a else 'supported'}" style="padding: 14px 16px;">
+                <div class="sentence-header">
+                    <span class="sentence-num">#{idx+1}</span>
+                    <span class="tag-pill {'tag-red' if f_a else 'tag-green'}">{'⚠️ Flagged' if f_a else '✓ Supported'}</span>
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+                <div style="font-size: 0.88rem; color: #e2e8f0;">{row['sentence_text']}</div>
+                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">NLI Score: <strong>{scores_a[idx]:.4f}</strong></div>
+                {exp_a_note}
+            </div>
+            """
+            st.markdown(clean_html(card_a_html), unsafe_allow_html=True)
         with c2:
             exp_b_note = ""
             if f_b:
@@ -888,20 +964,18 @@ with tab_compare:
                 )
                 exp_b_note = f'<div style="font-size: 0.77rem; color: #fda4af; margin-top: 6px; border-top: 1px dashed rgba(244,63,94,0.3); padding-top: 6px;"><strong>Diagnosis:</strong> {exp_b["explanation"]}</div>'
 
-            st.markdown(
-                f"""
-                <div class="sentence-box {'hallucinated' if f_b else 'supported'}" style="padding: 14px 16px;">
-                    <div class="sentence-header">
-                        <span class="sentence-num">#{idx+1}</span>
-                        <span class="tag-pill {'tag-red' if f_b else 'tag-green'}">{'⚠️ Flagged' if f_b else '✓ Supported'}</span>
-                    </div>
-                    <div style="font-size: 0.88rem; color: #e2e8f0;">{row['sentence_text']}</div>
-                    <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Consistency Score: <strong>{scores_b[idx]:.4f}</strong></div>
-                    {exp_b_note}
+            card_b_html = f"""
+            <div class="sentence-box {'hallucinated' if f_b else 'supported'}" style="padding: 14px 16px;">
+                <div class="sentence-header">
+                    <span class="sentence-num">#{idx+1}</span>
+                    <span class="tag-pill {'tag-red' if f_b else 'tag-green'}">{'⚠️ Flagged' if f_b else '✓ Supported'}</span>
                 </div>
-                """,
-                unsafe_allow_html=True
-            )
+                <div style="font-size: 0.88rem; color: #e2e8f0;">{row['sentence_text']}</div>
+                <div style="font-size: 0.75rem; color: #94a3b8; margin-top: 6px;">Consistency Score: <strong>{scores_b[idx]:.4f}</strong></div>
+                {exp_b_note}
+            </div>
+            """
+            st.markdown(clean_html(card_b_html), unsafe_allow_html=True)
 
 
 # =============================================================================
@@ -948,7 +1022,7 @@ with tab_benchmark:
 
     with e_col1:
         st.markdown(
-            """
+            clean_html("""
             <div class="defense-card">
                 <div class="defense-q">🎯 What does ROC-AUC = 0.8585 mean?</div>
                 <div class="defense-a">
@@ -958,12 +1032,12 @@ with tab_benchmark:
                     A random classifier achieves 0.50; this proves our deep cross-encoder has learned real legal contradiction semantics.
                 </div>
             </div>
-            """,
+            """),
             unsafe_allow_html=True
         )
 
         st.markdown(
-            """
+            clean_html("""
             <div class="defense-card">
                 <div class="defense-q">⚖️ Why is 100% Recall critical in Legal AI (The Legal Safety Rule)?</div>
                 <div class="defense-a">
@@ -973,13 +1047,13 @@ with tab_benchmark:
                     Approach A's <strong>100% Recall (16/16 caught)</strong> guarantees that <em>no hallucination escapes undetected</em>.
                 </div>
             </div>
-            """,
+            """),
             unsafe_allow_html=True
         )
 
     with e_col2:
         st.markdown(
-            """
+            clean_html("""
             <div class="defense-card">
                 <div class="defense-q">📉 Why did Approach A Accuracy jump from 27.3% to 72.3% with Calibration?</div>
                 <div class="defense-a">
@@ -988,12 +1062,12 @@ with tab_benchmark:
                     At default threshold $\\theta = 0.50$, the model flagged too many supported sentences as hallucinations (336 False Positives). Calibrating the threshold to $\\theta = 0.85$ matches legal linguistic complexity, <strong>eliminating 62% of false alarms</strong> while retaining <strong>100% Recall</strong>.
                 </div>
             </div>
-            """,
+            """),
             unsafe_allow_html=True
         )
 
         st.markdown(
-            """
+            clean_html("""
             <div class="defense-card">
                 <div class="defense-q">📊 Confusion Matrix: Zero Hallucination Leakage</div>
                 <div class="defense-a">
@@ -1006,7 +1080,7 @@ with tab_benchmark:
                     </ul>
                 </div>
             </div>
-            """,
+            """),
             unsafe_allow_html=True
         )
 
@@ -1084,7 +1158,7 @@ with tab_playground:
                 badge = '<span class="tag-pill tag-red">⚠️ Hallucination</span>' if is_h else '<span class="tag-pill tag-green">✓ Supported</span>'
 
                 st.markdown(
-                    f"""
+                    clean_html(f"""
                     <div class="sentence-box {card_class}">
                         <div class="sentence-header">
                             <span class="sentence-num">Sentence #{i+1} &nbsp; {badge}</span>
@@ -1092,7 +1166,7 @@ with tab_playground:
                         </div>
                         <div class="sentence-text">{sent}</div>
                     </div>
-                    """,
+                    """),
                     unsafe_allow_html=True
                 )
 
@@ -1105,7 +1179,7 @@ with tab_journey:
     st.caption("How this legal NLP research project was conceived, engineered, and benchmarked from scratch.")
 
     st.markdown(
-        """
+        clean_html("""
         <div class="journey-step journey-p1">
             <h4 style="color: #38bdf8; margin: 0 0 6px 0;">📍 Phase 1: Ingestion & Specialized Legal NLP Preprocessing</h4>
             <p style="color: #cbd5e1; font-size: 0.92rem; line-height: 1.6; margin: 0;">
@@ -1153,7 +1227,7 @@ with tab_journey:
                 <strong>What Was Built:</strong> Deployed the interactive Streamlit Web Platform, benchmark dashboard, and 51 passing unit tests.
             </p>
         </div>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
@@ -1163,11 +1237,11 @@ with tab_journey:
 # -----------------------------------------------------------------------------
 st.markdown("<br><hr>", unsafe_allow_html=True)
 st.markdown(
-    """
+    clean_html("""
     <div style="text-align: center; color: #64748b; font-size: 0.82rem;">
         Legal Hallucination Detection Platform • B.Tech Sem 5 Mini-Project (Deep Learning + NLP) • 
         Built with Streamlit, PyTorch, Transformers, SummaC & SelfCheckGPT
     </div>
-    """,
+    """),
     unsafe_allow_html=True
 )
